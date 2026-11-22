@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partido Vanguarda — Coragem, Visão e Futuro</title>
+  <style>
+    :root {
+      --black: #0d0d0f;
+      --black-soft: #17171c;
+      --wine: #5c1124;
+      --wine-dark: #3f0a17;
+      --wine-light: #7a1831;
+      --gold: #c9a227;
+      --gold-light: #e2be4b;
+      --bg: #f7f5f2;
+      --surface: #ffffff;
+      --text: #1c1917;
+      --muted: #57534e;
+      --border: #e5dfd5;
+      --radius: 10px;
+      --shadow: 0 10px 28px rgba(13, 13, 15, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1140px, 92%);
+      margin: 0 auto;
+    }
+
+    /* Header & Navegação */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13, 13, 15, 0.96);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 0.05em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--wine), var(--wine-dark));
+      border: 1.5px solid var(--gold);
+      color: var(--gold-light);
+      font-weight: 900;
+      font-size: 1.2rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.88);
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--gold-light);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-light);
+    }
+
+    .btn-wine {
+      background: var(--wine);
+      color: #fff;
+      border: 1px solid rgba(201, 162, 39, 0.45);
+    }
+
+    .btn-wine:hover {
+      background: var(--wine-light);
+    }
+
+    .btn-outline-gold {
+      background: transparent;
+      color: var(--gold-light);
+      border: 1.5px solid var(--gold);
+    }
+
+    .btn-outline-gold:hover {
+      background: rgba(201, 162, 39, 0.14);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 0.45rem 0.7rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      background: radial-gradient(circle at top right, var(--wine) 0%, var(--black-soft) 52%, var(--black) 100%);
+      color: #fff;
+      padding: 5.5rem 0;
+      border-bottom: 1px solid rgba(201, 162, 39, 0.25);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(201, 162, 39, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      padding: 0.32rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 4.2vw, 3.35rem);
+      line-height: 1.14;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero h1 span {
+      color: var(--gold-light);
+    }
+
+    .hero p {
+      font-size: 1.08rem;
+      color: rgba(255, 255, 255, 0.86);
+      margin-bottom: 1.9rem;
+      max-width: 58ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.95rem;
+    }
+
+    .hero-card {
+      background: rgba(23, 23, 28, 0.88);
+      border: 1px solid rgba(201, 162, 39, 0.45);
+      border-radius: var(--radius);
+      padding: 1.85rem;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+    }
+
+    .hero-card h2 {
+      font-size: 1.18rem;
+      color: var(--gold-light);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(201, 162, 39, 0.25);
+    }
+
+    .pillars-list {
+      list-style: none;
+      display: grid;
+      gap: 0.95rem;
+    }
+
+    .pillars-list li {
+      padding-left: 1rem;
+      border-left: 3px solid var(--gold);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 0.95rem;
+    }
+
+    /* Secções Gerais */
+    section {
+      padding: 4.5rem 0;
+    }
+
+    .section-header {
+      margin-bottom: 2.3rem;
+      max-width: 65ch;
+    }
+
+    .section-header span {
+      color: var(--wine);
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.65rem, 3vw, 2.3rem);
+      color: var(--black);
+      margin-top: 0.35rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-header p {
+      color: var(--muted);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--wine);
+      border-radius: var(--radius);
+      padding: 1.7rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-top-color: var(--gold);
+    }
+
+    .card h3 {
+      color: var(--black);
+      font-size: 1.16rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .meta-date {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--wine);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.45rem;
+      display: block;
+    }
+
+    /* Faixa Institucional (Valores / Manifesto) */
+    .manifesto-band {
+      background: var(--wine-dark);
+      color: #fff;
+      border-top: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .manifesto-band .section-header span {
+      color: var(--gold-light);
+    }
+
+    .manifesto-band .section-header h2 {
+      color: #fff;
+    }
+
+    .manifesto-band .section-header p {
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .value-box {
+      background: rgba(13, 13, 15, 0.45);
+      border: 1px solid rgba(201, 162, 39, 0.35);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .value-box h3 {
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .value-box p {
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 0.94rem;
+    }
+
+    /* Formulário de Filiação */
+    .join-box {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--black);
+      border-radius: var(--radius);
+      padding: 2.3rem;
+      box-shadow: var(--shadow);
+    }
+
+    form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.72rem 0.85rem;
+      border: 1px solid #d6cfc2;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: #fff;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid rgba(92, 17, 36, 0.25);
+      border-color: var(--wine);
+    }
+
+    .feedback {
+      display: none;
+      padding: 0.9rem 1rem;
+      border-radius: 8px;
+      background: #fbf7eb;
+      border: 1px solid var(--gold);
+      color: var(--black);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--black);
+      color: rgba(255, 255, 255, 0.82);
+      padding: 2.6rem 0;
+      border-top: 2px solid var(--gold);
+    }
+
+    .footer-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-wrap strong {
+      color: var(--gold-light);
+    }
+
+    @media (max-width: 860px) {
+      .hero-grid,
+      .grid-3,
+      .join-box {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-toggle {
+        display: inline-block;
+      }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        right: 0;
+        background: var(--black);
+        padding: 1.1rem 4%;
+        border-bottom: 2px solid var(--gold);
+      }
+
+      nav.open {
+        display: block;
+      }
+
+      nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-wrap">
+      <a href="#" class="brand">
+        <span class="brand-mark">V</span>
+        <span>PARTIDO VANGUARDA</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+
+      <nav id="mainNav">
+        <ul>
+          <li><a href="#programa">Programa</a></li>
+          <li><a href="#identidade">Identidade</a></li>
+          <li><a href="#noticias">Notícias</a></li>
+          <li><a href="#filiacao">Filiar-se</a></li>
+          <li><a href="#filiacao" class="btn btn-gold">Junta-te a Nós</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="badge">Coragem • Visão • Futuro</span>
+          <h1>Liderar a mudança com <span>rigor, dignidade</span> e compromisso nacional.</h1>
+          <p>
+            O Partido Vanguarda reúne cidadãos determinados a renovar a política, fortalecer a economia
+            produtiva e colocar o interesse público acima de qualquer agenda particular.
+          </p>
+          <div class="hero-actions">
+            <a href="#filiacao" class="btn btn-gold">Quero Filiar-me</a>
+            <a href="#programa" class="btn btn-outline-gold">Conhecer o Programa</a>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <h2>Compromissos de Vanguarda</h2>
+          <ul class="pillars-list">
+            <li><strong>Estado Eficiente e Íntegro:</strong> contas públicas transparentes, digitalização e combate firme à burocracia.</li>
+            <li><strong>Economia de Produção:</strong> incentivo às PME, industrialização local e valorização do trabalho qualificado.</li>
+            <li><strong>Justiça Social e Juventude:</strong> ensino técnico de excelência, habitação acessível e saúde de proximidade.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="programa">
+      <div class="container">
+        <div class="section-header">
+          <span>Programa Político</span>
+          <h2>Eixos Estratégicos de Acção</h2>
+          <p>
+            Soluções estruturadas para acelerar o desenvolvimento económico e elevar a qualidade de vida das famílias.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Educação, Ciência e Juventude</h3>
+            <p>
+              Investimento na formação técnica e tecnológica, bolsas de mérito e programas de integração no primeiro emprego.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Diversificação Económica</h3>
+            <p>
+              Apoio directo ao empreendedorismo nacional, acesso simplificado ao crédito produtivo e modernização das infra-estruturas.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Saúde e Coesão Territorial</h3>
+            <p>
+              Reforço dos cuidados primários nos municípios, valorização dos profissionais de saúde e descentralização administrativa.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="identidade" class="manifesto-band">
+      <div class="container">
+        <div class="section-header">
+          <span>Os Nossos Princípios</span>
+          <h2>O Significado das Nossas Cores</h2>
+          <p>
+            Cada símbolo do Partido Vanguarda reflecte a responsabilidade histórica que assumimos perante o país.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="value-box">
+            <h3>Preto — Firmeza e Soberania</h3>
+            <p>
+              Representa a solidez institucional, a seriedade na governação e a determinação inabalável na defesa do interesse público.
+            </p>
+          </div>
+
+          <div class="value-box">
+            <h3>Cor de Vinho — Coragem e Sacrifício</h3>
+            <p>
+              Simboliza a entrega cívica, a maturidade política e o compromisso profundo com as aspirações do povo.
+            </p>
+          </div>
+
+          <div class="value-box">
+            <h3>Dourado — Excelência e Futuro</h3>
+            <p>
+              Traduz a ambição de prosperidade, transparência e inovação para construir uma nação próspera e respeitada.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="noticias">
+      <div class="container">
+        <div class="section-header">
+          <span>Actualidade</span>
+          <h2>Notícias e Agenda</h2>
+          <p>Acompanhe as iniciativas, debates e comunicados oficiais do Partido Vanguarda.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <span class="meta-date">Novembro 2026</span>
+            <h3>Fórum Nacional sobre Emprego e Indústria</h3>
+            <p>
+              Encontro reúne jovens quadros, empresários e especialistas para debater medidas de estímulo à produção interna.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="meta-date">Outubro 2026</span>
+            <h3>Carta de Compromisso pela Transparência</h3>
+            <p>
+              Apresentação pública das metas de prestação de contas e modernização da administração local.
+            </p>
+          </article>
+
+          <article class="card">
+            <span class="meta-date">Setembro 2026</span>
+            <h3>Expansão dos Núcleos de Base</h3>
+            <p>
+              Novas coordenações locais iniciam sessões permanentes de auscultação comunitária nos bairros e municípios.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="filiacao">
+      <div class="container">
+        <div class="section-header">
+          <span>Participação Cívica</span>
+          <h2>Filiar-se no Partido Vanguarda</h2>
+          <p>
+            Junte a sua voz e o seu talento a um projecto político sério, aberto e orientado para resultados.
+          </p>
+        </div>
+
+        <div class="join-box">
+          <div>
+            <h3>Por que fazer parte?</h3>
+            <p style="color: var(--muted); margin-top: 0.6rem; margin-bottom: 1.2rem;">
+              A transformação do país exige cidadãos activos. Ao registar-se, passa a integrar a nossa rede de
+              militantes e simpatizantes, com acesso a grupos de trabalho e encontros regionais.
+            </p>
+            <ul class="pillars-list">
+              <li style="color: var(--text); border-left-color: var(--wine);">Participação directa nas comissões temáticas e debates programáticos.</li>
+              <li style="color: var(--text); border-left-color: var(--wine);">Recepção de boletins informativos e convocatórias oficiais.</li>
+              <li style="color: var(--text); border-left-color: var(--wine);">Acção comunitária e mobilização cívica na sua localidade.</li>
+            </ul>
+          </div>
+
+          <form id="joinForm">
+            <div class="field">
+              <label for="nome">Nome completo</label>
+              <input type="text" id="nome" name="nome" required placeholder="Ex.: Carlos Alberto Mendes" />
+            </div>
+
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" required placeholder="nome@exemplo.com" />
+            </div>
+
+            <div class="field">
+              <label for="provincia">Província / Município</label>
+              <input type="text" id="provincia" name="provincia" required placeholder="Ex.: Luanda" />
+            </div>
+
+            <div class="field">
+              <label for="tipo">Modalidade de participação</label>
+              <select id="tipo" name="tipo">
+                <option value="Militante / Filiação">Militante (Pedido de Filiação)</option>
+                <option value="Voluntariado">Voluntário de Campanha</option>
+                <option value="Simpatizante">Simpatizante / Informativos</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="mensagem">Área de interesse ou mensagem (opcional)</label>
+              <textarea id="mensagem" name="mensagem" rows="3" placeholder="Ex.: Economia, Educação, Juventude, Saúde..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-wine">Submeter Inscrição</button>
+            <div class="feedback" id="formFeedback" role="status"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contactos">
+    <div class="container footer-wrap">
+      <div>
+        <strong>PARTIDO VANGUARDA</strong> — Coragem, Visão e Futuro.
+      </div>
+      <div>
+        Contacto oficial: <a href="mailto:contacto@partidovanguarda.org" style="text-decoration: underline;">contacto@partidovanguarda.org</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const mainNav = document.getElementById("mainNav");
+
+    menuToggle.addEventListener("click", () => {
+      mainNav.classList.toggle("open");
+    });
+
+    mainNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => mainNav.classList.remove("open"));
+    });
+
+    const joinForm = document.getElementById("joinForm");
+    const formFeedback = document.getElementById("formFeedback");
+
+    joinForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const nome = document.getElementById("nome").value.trim();
+      const tipo = document.getElementById("tipo").value;
+
+      formFeedback.style.display = "block";
+      formFeedback.textContent = `Bem-vindo(a), ${nome}! O seu pedido (${tipo}) foi registado localmente. Ligue este formulário à base de dados ou e-mail oficial do partido para recepção automática.`;
+      joinForm.reset();
+    });
+  </script>
+</body>
+</html>
